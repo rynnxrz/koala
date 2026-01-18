@@ -1,5 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { company, site } from "@/lib/company";
+
+// Logo assets
+import sparkLogo from "@/image/spark-light-logo.svg";
+import ivyjLogo from "@/image/ivyj.webp";
+import oraLogo from "@/image/ora.webp";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://khakikoala.co.nz";
 
@@ -43,16 +49,21 @@ export default function HomePage() {
               {company.legalName}
             </p>
             <h1 className="mt-5 font-[var(--font-display)] text-4xl font-semibold leading-tight text-balance text-[color:var(--ink)] sm:text-5xl">
-              Calm, compliant operations for B2B teams that cannot afford chaos.
+              Operations that run themselves. Compliance you can prove.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-[color:var(--muted-ink)]">
-              {site.description} Move faster with a single source of truth for
-              onboarding, evidence, and reporting.
+              One platform for onboarding, evidence capture, and reporting.
+              Built for regulated B2B teams who ship fast and stay audit-ready.
             </p>
+            <div className="mt-6">
+              <span className="social-proof">
+                ✦ Powering NZ&apos;s fastest-growing teams
+              </span>
+            </div>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[color:var(--accent-dark)]"
+                className="cta-primary inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[color:var(--accent-dark)]"
               >
                 {site.primaryCta}
               </Link>
@@ -72,13 +83,13 @@ export default function HomePage() {
           <div className="relative">
             <div className="card-shadow rounded-3xl border border-[color:var(--line)] bg-white p-8">
               <p className="text-sm font-semibold text-[color:var(--muted-ink)]">
-                What teams ask for most
+                Why teams choose us
               </p>
               <div className="mt-6 space-y-5">
                 {[
-                  "Compliance-ready onboarding paths",
-                  "Audit trails with clear ownership",
-                  "Reporting that executives can trust",
+                  "Zero-friction onboarding",
+                  "Audit trails that hold up",
+                  "Reports execs actually read",
                 ].map((item) => (
                   <div
                     key={item}
@@ -88,14 +99,13 @@ export default function HomePage() {
                       {item}
                     </span>
                     <span className="text-xs uppercase tracking-[0.2em] text-[color:var(--accent)]">
-                      Ready
+                      Live
                     </span>
                   </div>
                 ))}
               </div>
               <div className="mt-8 rounded-2xl border border-dashed border-[color:var(--line)] p-4 text-sm text-[color:var(--muted-ink)]">
-                Designed for regulated services, finance partners, and
-                operationally complex B2B teams.
+                Built for regulated services, finance ops, and complex B2B workflows.
               </div>
             </div>
             <div className="absolute -right-6 -top-6 hidden h-24 w-24 rounded-full bg-[color:var(--mint)] opacity-60 blur-2xl lg:block" />
@@ -103,25 +113,123 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Logo Wall - Trusted By (Grayscale with hover color) */}
+      <section className="mx-auto max-w-6xl px-6 pb-12">
+        <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-[color:var(--muted-ink)]">
+          Team experience includes
+        </p>
+        <div className="logo-wall">
+          {[
+            { name: "Ivy J Studio", logo: ivyjLogo },
+            { name: "Ora Nutrition", logo: oraLogo },
+            { name: "Spark", logo: sparkLogo },
+            { name: "Kiwi Logistics", initials: "KL" }, // Fallback for KL
+          ].map((client) => (
+            <div key={client.name} className="logo-item" title={client.name}>
+              {client.logo ? (
+                <Image
+                  src={client.logo}
+                  alt={`${client.name} logo`}
+                  height={32}
+                  className="h-8 w-auto object-contain"
+                />
+              ) : (
+                <div className="flex h-10 items-center gap-2 rounded-lg bg-[color:var(--paper)] px-4">
+                  <span className="font-semibold text-[color:var(--ink)]">
+                    {client.initials}
+                  </span>
+                  <span className="text-sm text-[color:var(--muted-ink)]">
+                    {client.name}
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Micro Case Studies - Logo + Outcome Data Pattern */}
+      <section className="mx-auto max-w-6xl px-6 pb-16">
+        <div className="mb-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--muted-ink)]">
+            Results that matter
+          </p>
+          <h2 className="mt-3 font-[var(--font-display)] text-3xl font-semibold">
+            Real outcomes from real teams.
+          </h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              company: "Ivy J Studio",
+              logo: ivyjLogo,
+              outcome: "Replaced manual PDF workflows with live inventory, achieving",
+              highlight: "40% faster rental processing",
+              tags: ["Jewelry", "Inventory"],
+            },
+            {
+              company: "Ora Nutrition",
+              logo: oraLogo,
+              outcome: "Consolidated 4 spreadsheets into a single dashboard for",
+              highlight: "40-person team visibility",
+              tags: ["Food & Bev", "Operations"],
+            },
+            {
+              company: "Spark",
+              logo: sparkLogo,
+              outcome: "Prior experience delivering AI-powered call summaries at scale—",
+              highlight: "reducing agent handover time by 30%",
+              tags: ["Prior Experience", "AI Ops"],
+            },
+          ].map((caseStudy) => (
+            <div key={caseStudy.company} className="micro-case-card">
+              <div className="micro-case-header">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[color:var(--paper)] p-2">
+                  <Image
+                    src={caseStudy.logo}
+                    alt={`${caseStudy.company} logo`}
+                    width={40}
+                    height={40}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+                <span className="micro-case-company">{caseStudy.company}</span>
+              </div>
+              <p className="micro-case-outcome">
+                {caseStudy.outcome}{" "}
+                <span className="highlight">{caseStudy.highlight}</span>
+              </p>
+              <div className="micro-case-tags">
+                {caseStudy.tags.map((tag) => (
+                  <span key={tag} className="micro-case-tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-6 pb-16">
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
-              title: "Trust-first posture",
-              copy: "Document control, audit logs, and access governance by default.",
+              title: "Trust by default",
+              copy: "Audit logs, access controls, and version history—baked in from day one.",
             },
             {
-              title: "Designed for operators",
-              copy: "Clear handoffs, status visibility, and fewer follow-ups.",
+              title: "Built for doers",
+              copy: "Clear handoffs. Fewer pings. Everyone knows what's next.",
             },
             {
-              title: "NZ-based entity",
-              copy: "Registered with NZBN and built for local compliance needs.",
+              title: "NZ-owned",
+              copy: "NZBN-registered. Local support. Built for local compliance.",
             },
           ].map((card) => (
             <div
               key={card.title}
-              className="card-shadow rounded-3xl border border-[color:var(--line)] bg-white p-6"
+              className="card-shadow card-hover rounded-3xl border border-[color:var(--line)] bg-white p-6"
             >
               <p className="font-[var(--font-display)] text-lg font-semibold">
                 {card.title}
@@ -138,40 +246,40 @@ export default function HomePage() {
         <div className="flex items-end justify-between gap-6">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--muted-ink)]">
-              Core use cases
+              What you can do
             </p>
             <h2 className="mt-3 font-[var(--font-display)] text-3xl font-semibold">
-              Designed around how B2B teams actually operate.
+              Real workflows. Real results.
             </h2>
           </div>
           <Link
             href="/product"
             className="hidden text-sm font-semibold text-[color:var(--accent)] md:inline-flex"
           >
-            Explore the product →
+            See what&apos;s possible →
           </Link>
         </div>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {[
             {
-              title: "Vendor onboarding",
-              copy: "Centralize documents, approvals, and requirements in one place.",
+              title: "Onboard vendors fast",
+              copy: "Docs, approvals, requirements—one place, zero chasing.",
               tag: "Procurement",
             },
             {
-              title: "Client implementation",
-              copy: "Make every handoff visible, accountable, and trackable.",
+              title: "Ship implementations",
+              copy: "Visible handoffs. Clear owners. Nothing falls through.",
               tag: "Delivery",
             },
             {
-              title: "Regulatory reporting",
-              copy: "Generate evidence bundles without frantic spreadsheets.",
+              title: "Nail compliance",
+              copy: "Evidence bundles on demand. No last-minute scramble.",
               tag: "Compliance",
             },
           ].map((item) => (
             <div
               key={item.title}
-              className="rounded-3xl border border-[color:var(--line)] bg-[color:var(--paper)] p-6"
+              className="card-hover rounded-3xl border border-[color:var(--line)] bg-[color:var(--paper)] p-6"
             >
               <p className="text-xs uppercase tracking-[0.25em] text-[color:var(--muted-ink)]">
                 {item.tag}
@@ -195,12 +303,11 @@ export default function HomePage() {
                 How it works
               </p>
               <h2 className="mt-3 font-[var(--font-display)] text-3xl font-semibold">
-                Three steps to operational calm.
+                Up and running in weeks, not months.
               </h2>
             </div>
             <p className="max-w-xl text-sm text-[color:var(--muted-ink)]">
-              We keep rollout light: map your workflow, configure governance, then
-              launch with your team in weeks.
+              Map your workflow. Configure governance. Go live with your team.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
@@ -208,17 +315,17 @@ export default function HomePage() {
               {
                 step: "01",
                 title: "Assess",
-                copy: "Identify the workflows that create the most compliance risk.",
+                copy: "Pinpoint the workflows creating the most risk.",
               },
               {
                 step: "02",
                 title: "Configure",
-                copy: "Set up approvals, evidence capture, and handoff clarity.",
+                copy: "Set approvals, evidence capture, and handoff rules.",
               },
               {
                 step: "03",
                 title: "Operate",
-                copy: "Run live, monitor, and refine with clear ownership.",
+                copy: "Run live. Monitor. Improve with clear ownership.",
               },
             ].map((item) => (
               <div key={item.step} className="rounded-2xl bg-[color:var(--paper)] p-6">
@@ -244,26 +351,26 @@ export default function HomePage() {
               FAQ
             </p>
             <h2 className="mt-3 font-[var(--font-display)] text-3xl font-semibold">
-              The usual questions, answered.
+              Quick answers.
             </h2>
           </div>
           <div className="space-y-4">
             {[
               {
                 q: "How fast can we go live?",
-                a: "Most teams ship a pilot workflow in 2-4 weeks, depending on integration needs.",
+                a: "Most teams ship a pilot in 2–4 weeks.",
               },
               {
-                q: "Do you integrate with existing tools?",
-                a: "Yes. We start with CSV import and secure APIs, then add deeper integrations as needed.",
+                q: "Do you integrate with our tools?",
+                a: "Yes. CSV, secure APIs, and deeper integrations as needed.",
               },
               {
-                q: "What is your security posture?",
-                a: "Access controls, audit logs, and least-privilege defaults come standard.",
+                q: "What about security?",
+                a: "Access controls, audit logs, least-privilege defaults—standard.",
               },
               {
                 q: "How is pricing structured?",
-                a: "Pricing is based on active workflows and the number of governed participants.",
+                a: "Based on active workflows and governed participants.",
               },
             ].map((item) => (
               <details
@@ -287,14 +394,14 @@ export default function HomePage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-white/60">
-                Ready to move?
+                Let&apos;s talk
               </p>
               <h2 className="mt-3 font-[var(--font-display)] text-3xl font-semibold">
-                Book a short discovery call.
+                See it in action.
               </h2>
               <p className="mt-3 max-w-xl text-sm text-white/70">
-                We will map one operational workflow, confirm fit, and share a
-                pricing range within 48 hours.
+                One call. We&apos;ll map your workflow, confirm fit, and share pricing
+                within 48 hours.
               </p>
             </div>
             <Link
@@ -306,6 +413,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 }

@@ -27,7 +27,7 @@ export default function PricingPage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[color:var(--accent-dark)]"
+              className="cta-primary inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[color:var(--accent-dark)]"
             >
               {site.primaryCta}
             </Link>
@@ -57,24 +57,30 @@ export default function PricingPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
-              title: "Starter",
-              copy: "For focused teams running 1-2 core workflows with clear governance needs.",
-              fit: "Best for 20-50 participants",
+              title: "Enterprise",
+              copy: "Complex compliance requirements, custom integrations, and advanced controls.",
+              fit: "Best for 200+ participants",
+              isRecommended: false,
             },
             {
               title: "Growth",
               copy: "Scale multiple onboarding and compliance flows across departments.",
               fit: "Best for 50-200 participants",
+              isRecommended: true,
             },
             {
-              title: "Enterprise",
-              copy: "Complex compliance requirements, custom integrations, and advanced controls.",
-              fit: "Best for 200+ participants",
+              title: "Starter",
+              copy: "For focused teams running 1-2 core workflows with clear governance needs.",
+              fit: "Best for 20-50 participants",
+              isRecommended: false,
             },
           ].map((tier) => (
             <div
               key={tier.title}
-              className="rounded-3xl border border-[color:var(--line)] bg-[color:var(--paper)] p-6"
+              className={`rounded-3xl border p-6 ${tier.isRecommended
+                ? "pricing-recommended border-[color:var(--accent)] bg-white"
+                : "border-[color:var(--line)] bg-[color:var(--paper)]"
+                }`}
             >
               <p className="font-[var(--font-display)] text-xl font-semibold">
                 {tier.title}

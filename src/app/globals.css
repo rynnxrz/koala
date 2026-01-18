@@ -1,68 +1,300 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
-  --ink: #0f1b1f;
-  --muted-ink: #44575f;
-  --sand: #f4f1ea;
-  --paper: #fbfaf7;
-  --accent: #d05c2d;
-  --accent-dark: #a04724;
-  --mint: #a7c7b6;
-  --line: #e2ddd4;
+    /* Core palette */
+    --paper: #fafafa;
+    --ink: #1c1c1e;
+    --muted-ink: #6b7280;
+    --line: #e5e7eb;
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --mint: #d1fae5;
+
+    /* Trust & conversion colors */
+    --trust-green: #059669;
+    --highlight-yellow: #fef3c7;
 }
 
-@theme inline {
-  --color-background: var(--paper);
-  --color-foreground: var(--ink);
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: radial-gradient(1200px 420px at 10% -10%, rgba(208, 92, 45, 0.15), transparent 60%),
-    radial-gradient(900px 460px at 90% 0%, rgba(167, 199, 182, 0.25), transparent 65%),
-    var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
-}
-
-main {
-  min-height: 70vh;
-}
-
-::selection {
-  background: rgba(208, 92, 45, 0.18);
-}
-
+/* Grid background pattern */
 .bg-grid {
-  background-image: linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 64px 64px;
+    background-image:
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center center;
 }
 
+/* Card shadow - premium feel */
 .card-shadow {
-  box-shadow: 0 22px 50px rgba(15, 27, 31, 0.08);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-.text-balance {
-  text-wrap: balance;
+/* ============================================
+   CONVERSION OPTIMIZATION STYLES
+   Based on SaaS Psychology Research
+   ============================================ */
+
+/* CTA Button Animations - Visual attention magnets */
+.cta-primary {
+    position: relative;
+    transition: all 0.2s ease-out;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.cta-primary::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: var(--accent);
+    filter: blur(8px);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.2s ease-out;
+}
+
+.cta-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.cta-primary:hover::after {
+    opacity: 0.4;
+}
+
+/* Card Hover Effects - Engagement signals */
+.card-hover {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.04),
+        0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Pricing Card Highlight - Anchoring effect visual */
+.pricing-recommended {
+    position: relative;
+    border-color: var(--accent) !important;
+    background: white !important;
+    transform: scale(1.02);
+    z-index: 1;
+}
+
+.pricing-recommended::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    border-radius: 9999px;
+}
+
+/* Trust Badge Styling */
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--trust-green);
+    font-weight: 500;
+}
+
+.trust-badge::before {
+    content: '✓';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--trust-green);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.625rem;
+}
+
+/* Social Proof Indicator - builds trust */
+.social-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--mint);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--trust-green);
+}
+
+/* Focus states for accessibility */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+a,
+button,
+input,
+select,
+textarea {
+    transition: all 0.15s ease-out;
+}
+
+/* Form input focus enhancement */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Subtle shimmer animation for featured elements */
+@keyframes subtle-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.shimmer-on-hover:hover {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 100%);
+    background-size: 200% 100%;
+    animation: subtle-shimmer 1.5s ease-in-out;
+}
+
+/* Feature check/cross styling for pricing */
+.feature-included {
+    color: var(--trust-green);
+}
+
+.feature-excluded {
+    color: var(--muted-ink);
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+/* ============================================
+   LOGO WALL - Grayscale to Color Effect
+   Avoids "Banner Blindness" with unified look
+   ============================================ */
+
+.logo-wall {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease-out;
+}
+
+.logo-item:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.logo-item img {
+    max-height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ============================================
+   MICRO CASE STUDIES
+   "Logo + Outcome Data" Pattern
+   ============================================ */
+
+.micro-case-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    transition: all 0.2s ease-out;
+}
+
+.micro-case-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.micro-case-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.micro-case-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--ink);
+}
+
+.micro-case-company {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--ink);
+}
+
+.micro-case-outcome {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+}
+
+.micro-case-outcome .highlight {
+    color: var(--accent);
+}
+
+.micro-case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.micro-case-tag {
+    padding: 0.25rem 0.75rem;
+    background: var(--paper);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted-ink);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }

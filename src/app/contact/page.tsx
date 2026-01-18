@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { company } from "@/lib/company";
+import { SubmitButton } from "@/app/components/SubmitButton";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -118,6 +119,7 @@ export default function ContactPage({
                   type="email"
                   required
                   autoComplete="email"
+                  spellCheck={false}
                   className="mt-2 w-full rounded-2xl border border-[color:var(--line)] px-4 py-3 text-sm"
                   placeholder="jane@company.com"
                 />
@@ -138,46 +140,15 @@ export default function ContactPage({
                   placeholder="Company name"
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="lead-team-size"
-                  className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-ink)]"
-                >
-                  Team size
-                </label>
-                <select
-                  id="lead-team-size"
-                  name="teamSize"
-                  className="mt-2 w-full rounded-2xl border border-[color:var(--line)] bg-white px-4 py-3 text-sm"
-                >
-                  <option value="">Select...</option>
-                  <option value="20-50">20-50</option>
-                  <option value="50-200">50-200</option>
-                  <option value="200-500">200-500</option>
-                  <option value="500+">500+</option>
-                </select>
+              <input type="hidden" name="teamSize" value="" />
+              <input type="hidden" name="message" value="" />
+              <input type="hidden" name="message" value="" />
+              <SubmitButton />
+              <div className="flex items-center justify-center gap-4 pt-2 text-xs text-[color:var(--muted-ink)]">
+                <span className="trust-badge">Data protected</span>
+                <span>•</span>
+                <span>We respond within 48 hours</span>
               </div>
-              <div>
-                <label
-                  htmlFor="lead-message"
-                  className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-ink)]"
-                >
-                  What workflow do you want to improve?
-                </label>
-                <textarea
-                  id="lead-message"
-                  name="message"
-                  rows={4}
-                  className="mt-2 w-full rounded-2xl border border-[color:var(--line)] px-4 py-3 text-sm"
-                  placeholder="Tell us about onboarding, compliance, or reporting needs."
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full rounded-full bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[color:var(--accent-dark)]"
-              >
-                Submit request
-              </button>
             </form>
           )}
         </div>
